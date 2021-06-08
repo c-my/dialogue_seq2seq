@@ -1,0 +1,43 @@
+# seq2seq.yaml
+
+## Where the samples will be written
+save_data: saved_data/
+## Where the vocab(s) will be written
+src_vocab: vocab/dialog.vocab.src
+tgt_vocab: vocab/dialog.vocab.tgt
+# Prevent overwriting existing files in the folder
+overwrite: False
+
+# Corpus opts:
+data:
+  corpus_1:
+    path_src: corpus/dailydialog/dialogues_train_src.txt
+    path_tgt: corpus/dailydialog/dialogues_train_tgt.txt
+  valid:
+    path_src: corpus/dailydialog/dialogues_validation_src.txt
+    path_tgt: corpus/dailydialog/dialogues_validation_tgt.txt
+
+both_embeddings: embeddings/glove.6B/glove.6B.300d.txt
+embeddings_type: "GloVe"
+word_vec_size: 300
+
+global_attention: "mlp"
+
+encoder_type: brnn
+decoder_type: rnn
+
+hidden_size: 500
+optim: sgd
+switchout_temperature: 0.01
+
+# Train on a single GPU
+world_size: 1
+gpu_ranks: [ 0 ]
+
+# Where to save the checkpoints
+save_model: model
+save_checkpoint_steps: 1000
+train_steps: 100000
+valid_steps: 1000
+
+train_from: model_step_78000.pt
